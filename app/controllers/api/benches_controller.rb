@@ -6,13 +6,13 @@ class Api::BenchesController < ApplicationController
   end
 
   def create
-    @bench = Bench.new(bench_params)
-    render :show
+    @bench = Bench.create!(bench_params)
+      render :show
   end
 
   private
   def bench_params
-    params.require(:bench).permit(:description, :lat, :lng)
+    params.require(:bench).permit(:description, :lat, :lng, :seating)
   end
 
   def bounds

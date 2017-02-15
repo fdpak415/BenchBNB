@@ -24,7 +24,7 @@ class BenchMap extends React.Component {
         const {north, south, east, west} = this.map.getBounds().toJSON();
         const newBounds = {northEast: {lat: north, lng: east},
                            southWest: {lat: south, lng: west}}
-        this.props.updateBounds(newBounds);
+        this.props.updateFilter('bounds', newBounds);
       })
     }
 
