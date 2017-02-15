@@ -7,7 +7,7 @@ class User < ApplicationRecord
   after_initialize :ensure_session_token
   before_validation :ensure_session_token_uniqueness
 
-  def find_by_credentials(username, password)
+  def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
       return nil unless user
       user.password_is?(password) ? user : nil
@@ -22,7 +22,7 @@ class User < ApplicationRecord
     BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
-  def reset_session_token
+  def reset_session_token!
     self.session_token = new_session_token
     ensure_session_token_uniqueness
     self.save
