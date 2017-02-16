@@ -17,20 +17,37 @@ class BenchMap extends React.Component {
     this.MarkerManager.updateMarkers(this.props.benches);
 
     this._registerListeners();
-    }
-
-    _registerListeners() {
-      google.maps.event.addListener(this.map, 'idle', () => {
-        const {north, south, east, west} = this.map.getBounds().toJSON();
-        const newBounds = {northEast: {lat: north, lng: east},
-                           southWest: {lat: south, lng: west}}
-        this.props.updateFilter('bounds', newBounds);
-      })
+    this._registerClick();
     }
 
 
   componentDidUpdate() {
     this.MarkerManager.updateMarkers(this.props.benches);
+  }
+
+  _registerListeners() {
+    google.maps.event.addListener(this.map, 'idle', () => {
+      const {north, south, east, west} = this.map.getBounds().toJSON();
+      const newBounds = {northEast: {lat: north, lng: east},
+                         southWest: {lat: south, lng: west}}
+      this.props.updateFilter('bounds', newBounds);
+    })
+  }
+
+  _registerClick() {
+    google.maps.event.addListener(this.map, 'click', (event) => {
+      var latitude = event.latLng.lat();
+      var longitude = event.latLng.lng();
+      const coords =  {lat: latitude, lng: longitude}
+      this._handleClick(coords);
+    })
+  }
+
+  _handleClick(coords) {
+    this.props.router.push({
+      pathname: "benches/new",
+      query: coords
+    });
   }
 
   render() {

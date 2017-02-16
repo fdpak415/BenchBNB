@@ -7,11 +7,12 @@ class BenchForm extends React.Component {
     this.state = {
       description: "",
       seating: '',
-      lat: '',
-      lng: ''
+      lat: props.lat,
+      lng: props.lng
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this._navigateToSearch = this._navigateToSearch.bind(this);
 
   }
 
@@ -19,10 +20,15 @@ class BenchForm extends React.Component {
     e.preventDefault();
     const bench = Object.assign({}, this.state)
     this.props.createBench({bench});
+    this._navigateToSearch();
   }
 
   update(property) {
     return e => this.setState({[property]: e.target.value})
+  }
+
+  _navigateToSearch() {
+    this.props.router.push("/")
   }
 
   render() {
@@ -54,6 +60,7 @@ class BenchForm extends React.Component {
           <br></br>
           <input
             type="text"
+            disabled
             value={lat}
             onChange={this.update('lat')}
             placeholder="Latitude"/>
@@ -64,7 +71,7 @@ class BenchForm extends React.Component {
           <br></br>
           <input
             type="text"
-            value={lng}
+            disabled value={lng}
             onChange={this.update('lng')}
             placeholder="Longitude"/>
 

@@ -14,6 +14,16 @@ const Root = ({store}) => {
       replace('/')
     }
   }
+
+  const _ensureLoggedIn = (nextState, replace) => {
+    const currentUser = store.getState().session.currentUser;
+    if (currentUser) {
+      return
+    } else {
+      replace('/')
+    }
+  }
+
   return (
   <Provider store={store}>
     <Router history={hashHistory}>
@@ -21,7 +31,7 @@ const Root = ({store}) => {
         <IndexRoute component={SearchContainer} />
         <Route path="/login" component={SessionFormContainer} onEnter={_redirectIfLoggedIn}/>
         <Route path="/signup" component={SessionFormContainer} onEnter={_redirectIfLoggedIn}/>
-        <Route path="/benches/new" component={BenchFormContainer} />
+        <Route path="/benches/new" component={BenchFormContainer} onEnter={_ensureLoggedIn}/>
       </Route>
     </Router>
   </Provider>
