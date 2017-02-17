@@ -5,7 +5,10 @@ import {selectAllBenches} from '../../reducers/selector';
 import {updateFilter} from '../../actions/filter_actions';
 
 const mapStateToProps = (state) => ({
-  benches: selectAllBenches(state)
+  benches: selectAllBenches(state),
+  minSeating: state.filters.minSeating,
+  maxSeating: state.filters.maxSeating
+
 })
 
 const mapDispatchToProps = (dispatch) => ({

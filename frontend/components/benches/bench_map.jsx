@@ -3,10 +3,18 @@ import ReactDOM from 'react-dom'
 import MarkerManager from '../../util/marker_manager';
 import { withRouter } from 'react-router';
 
-let _mapOptions = {
-  center: {lat: 37.773972, lng: -122.431297},
-  zoom: 13
-};
+if (this.props.singleBench) {
+  let _mapOptions = {
+    center: {lat: this.props.bench.lat, lng: this.props.bench.lng},
+    zoom: 13,
+    draggable: false
+  }
+} else {
+  let _mapOptions = {
+    center: {lat: 37.773972, lng: -122.431297},
+    zoom: 13
+  };
+}
 
 class BenchMap extends React.Component {
 
@@ -14,10 +22,14 @@ class BenchMap extends React.Component {
     const map = this.refs.map;
     this.map = new google.maps.Map(map, _mapOptions);
     this.MarkerManager = new MarkerManager(this.map)
-    this.MarkerManager.updateMarkers(this.props.benches);
+    if (singleBench) {
+      this.MarkerManager.updateMarkers(this.props.bench);
+    } else {
+        this.MarkerManager.updateMarkers(this.props.benches);
+        this._registerListeners();
+        this._registerClick();
+      }
 
-    this._registerListeners();
-    this._registerClick();
     }
 
 
