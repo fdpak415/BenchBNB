@@ -1,6 +1,6 @@
 import React from 'react';
 import BenchIndex from './bench_index';
-import {Router} from 'react-router'
+import {withRouter} from 'react-router'
 
 class BenchIndexItem extends React.Component {
   constructor(props) {
@@ -10,9 +10,9 @@ class BenchIndexItem extends React.Component {
 
   }
 
-  handleClick() {
+  handleClick(e) {
     e.preventDefault();
-    this.props.router.push(`/benches/${e.target.bench.id}`)
+    this.props.router.push(`/benches/${this.props.bench.id}`)
   }
 
   render() {
@@ -25,4 +25,4 @@ class BenchIndexItem extends React.Component {
   }
 }
 
-export default BenchIndexItem;
+export default withRouter(BenchIndexItem);

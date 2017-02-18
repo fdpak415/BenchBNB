@@ -1,4 +1,4 @@
-import {RECEIVE_BENCHES, RECEIVE_BENCH} from '../actions/bench_actions';
+import {RECEIVE_BENCHES, RECEIVE_BENCH, RECEIVE_REVIEW} from '../actions/bench_actions';
 
 
 const benchesReducer = (state = {}, action) => {
@@ -9,7 +9,10 @@ const benchesReducer = (state = {}, action) => {
     case RECEIVE_BENCH:
       const newBench = {[action.bench.id]: action.bench}
       return Object.assign({}, state, newBench);
-      break;
+    case RECEIVE_REVIEW:
+      let newState = Object.assign({}, state);
+      newState[action.review.bench_id].reviews.push(review)
+      return newState;
     default:
       return state;
   }

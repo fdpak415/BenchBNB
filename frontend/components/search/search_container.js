@@ -8,7 +8,6 @@ const mapStateToProps = (state) => ({
   benches: selectAllBenches(state),
   minSeating: state.filters.minSeating,
   maxSeating: state.filters.maxSeating
-
 })
 
 const mapDispatchToProps = (dispatch) => ({

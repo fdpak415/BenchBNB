@@ -5,11 +5,13 @@ import Root from './components/root';
 // import {fetchBenches} from './actions/bench_actions';
 import {fetchBenches} from './util/bench_api_util';
 
+import {selectAllBenches} from './reducers/selector';
 
 import {signup, login, logout} from './actions/session_actions';
 
 
 window.fetchBenches = fetchBenches;
+window.selectAllBenches = selectAllBenches;
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;

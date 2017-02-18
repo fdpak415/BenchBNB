@@ -13,7 +13,9 @@ export default class MarkerManager {
    this._benchesToAdd().forEach(this._createMarkerFromBench);
    this._markersToRemove().forEach(this._removeMarker);
 
- }
+   }
+
+
 
  _benchesToAdd() {
    const currentBenches = this.markers.map( marker => marker.benchId );

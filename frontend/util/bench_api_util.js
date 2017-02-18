@@ -13,3 +13,18 @@ export const createBench = bench => {
     data: bench
   })
 }
+
+export const fetchBench = benchId => {
+  return $.ajax({
+    method: 'GET',
+    url: `/api/benches/${benchId}`
+  })
+}
+
+export const createReview = data => {
+  return $.ajax({
+    method: 'POST',
+    url: `/api/reviews`,
+    data: data
+  })
+}

@@ -3,38 +3,50 @@ import ReactDOM from 'react-dom'
 import MarkerManager from '../../util/marker_manager';
 import { withRouter } from 'react-router';
 
-if (this.props.singleBench) {
-  let _mapOptions = {
-    center: {lat: this.props.bench.lat, lng: this.props.bench.lng},
-    zoom: 13,
-    draggable: false
-  }
-} else {
-  let _mapOptions = {
-    center: {lat: 37.773972, lng: -122.431297},
-    zoom: 13
-  };
-}
 
 class BenchMap extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.mapOptions = this.mapOptions.bind(this);
+  }
+
+  mapOptions() {
+    if (typeof this.props.singleBench === 'undefined') {
+      return {
+        center: {lat: 37.773972, lng: -122.431297},
+        zoom: 13
+      }
+    } else {
+
+      return {
+      center: {lat: this.props.bench.lat, lng: this.props.bench.lng},
+      zoom: 13,
+      draggable: false
+      }
+    }
+  }
 
   componentDidMount() {
     const map = this.refs.map;
-    this.map = new google.maps.Map(map, _mapOptions);
+    this.map = new google.maps.Map(map, this.mapOptions());
     this.MarkerManager = new MarkerManager(this.map)
-    if (singleBench) {
-      this.MarkerManager.updateMarkers(this.props.bench);
-    } else {
-        this.MarkerManager.updateMarkers(this.props.benches);
+
+      if (this.props.singleBench) {
+        this.props.fetchBench(this.props.benchId);
+      } else {
         this._registerListeners();
         this._registerClick();
       }
-
     }
 
 
   componentDidUpdate() {
-    this.MarkerManager.updateMarkers(this.props.benches);
+    if (this.props.singleBench) {
+      this.MarkerManager.updateMarkers([this.props.benches[Object.keys(this.props.benches)[0]]]);
+    } else {
+      this.MarkerManager.updateMarkers(this.props.benches);
+    }
   }
 
   _registerListeners() {
