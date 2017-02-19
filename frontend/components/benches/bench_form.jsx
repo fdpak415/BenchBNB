@@ -8,7 +8,8 @@ class BenchForm extends React.Component {
       description: "",
       seating: '',
       lat: props.lat,
-      lng: props.lng
+      lng: props.lng,
+      image_url: ''
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,6 +26,7 @@ class BenchForm extends React.Component {
 
   update(property) {
     return e => this.setState({[property]: e.target.value})
+    debugger;
   }
 
   _navigateToSearch() {
@@ -32,7 +34,7 @@ class BenchForm extends React.Component {
   }
 
   render() {
-    const {description, seating, lat, lng} = this.state;
+    const {description, seating, lat, lng, image_url} = this.state;
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -76,6 +78,13 @@ class BenchForm extends React.Component {
             placeholder="Longitude"/>
 
           <br></br><br></br>
+
+          <label>Image Url</label>
+          <br></br>
+          <input
+            type="text"
+            onChange={this.update('image_url')}
+            value={image_url}/>
 
           <input type="submit" value="Create Bench"/>
 
