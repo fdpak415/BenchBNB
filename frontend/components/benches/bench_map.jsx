@@ -29,11 +29,12 @@ class BenchMap extends React.Component {
 
   componentDidMount() {
     const map = this.refs.map;
+    const benchId = this.props.benchId
     this.map = new google.maps.Map(map, this.mapOptions());
     this.MarkerManager = new MarkerManager(this.map)
 
       if (this.props.singleBench) {
-        this.props.fetchBench(this.props.benchId);
+        this.props.fetchBench(benchId);
       } else {
         this._registerListeners();
         this._registerClick();

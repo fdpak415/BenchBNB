@@ -1,12 +1,12 @@
 import React from 'react';
+import {withRouter} from 'react-router';
 
 class ReviewForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       body: "",
-      rating: "",
-      bench_id: this.props.benchId
+      rating: ""
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,7 +14,12 @@ class ReviewForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createReview(this.state);
+    const benchId = parseInt(this.props.params.benchId);
+    const review = Object.assign({}, this.state, {
+      bench_id: benchId
+    });
+    this.props.createReview({review});
+    this.props.router.push(`/benches/${parseInt(this.props.params.benchId)}`)
   }
 
   update(property) {
@@ -37,7 +42,7 @@ class ReviewForm extends React.Component {
           <input
             type="number"
             min="0"
-            man="5"
+            max="5"
             value={this.state.rating}
             onChange={this.update('rating')}></input>
 
@@ -50,4 +55,4 @@ class ReviewForm extends React.Component {
   }
 }
 
-export default ReviewForm;
+export default withRouter(ReviewForm);

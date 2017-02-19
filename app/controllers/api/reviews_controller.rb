@@ -1,7 +1,12 @@
-class Api::BenchesController < ApplicationController
+class Api::ReviewsController < ApplicationController
 
   def create
-    @review = Review.create!(review_params)
+    @review = Review.new(review_params)
+      if @review.save
+        render :show
+      else
+        render json: @review, status: :unprocessable_entity
+      end
   end
 
   private

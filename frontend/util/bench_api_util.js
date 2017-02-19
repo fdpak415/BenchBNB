@@ -21,10 +21,10 @@ export const fetchBench = benchId => {
   })
 }
 
-export const createReview = data => {
+export const createReview = (data) => {
   return $.ajax({
     method: 'POST',
     url: `/api/reviews`,
-    data: data
-  })
-}
+    data
+  });
+};

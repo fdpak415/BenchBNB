@@ -20,6 +20,7 @@ class BenchIndexItem extends React.Component {
     return(
       <div>
           <h3 onClick={this.handleClick}>{bench.id}: {bench.description}</h3>
+          <img src={bench.image_url}/>
       </div>
     )
   }
